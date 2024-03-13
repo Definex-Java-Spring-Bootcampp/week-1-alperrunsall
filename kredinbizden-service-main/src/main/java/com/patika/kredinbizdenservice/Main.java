@@ -22,6 +22,8 @@ public class Main {
         int userCount = 10;
         // Belirtilen sayıda rastgele kullanıcı oluştur
         UserDatabase userDatabase = new UserDatabase();
+        userDatabase.registerUser("Cem", "Cem", getRandomBirthDate(),
+                "cemdrman@gmail.com", "şifre", "+9000000000", true);
         for (int i = 0; i < userCount; i++) {
             Random random = new Random();
             userDatabase.registerUser(names[random.nextInt(names.length)], "surname",
@@ -47,14 +49,15 @@ public class Main {
 
 
         CreditCard creditCard1 = new CreditCard(BigDecimal.valueOf(159L), List.of(campaign1));
-        CreditCard creditCard2 = new CreditCard(BigDecimal.valueOf(159L), List.of(campaign1, campaign3));
-        CreditCard creditCard3 = new CreditCard(BigDecimal.valueOf(159L), List.of(campaign1, campaign2, campaign3));
+        CreditCard creditCard2 = new CreditCard(BigDecimal.valueOf(99L), List.of(campaign1, campaign3));
+        CreditCard creditCard3 = new CreditCard(BigDecimal.valueOf(0L), List.of(campaign1, campaign2, campaign3));
 
         List<CreditCard> creditCardList = List.of(creditCard1, creditCard2, creditCard3);
 
-        Bank bank1 = new Bank("Banka1", List.of(loan1, loan4, loan6, loan9), List.of(creditCard1));
+        /*Bank bank1 = new Bank("Banka1", List.of(loan1, loan4, loan6, loan9), List.of(creditCard1));
         Bank bank2 = new Bank("Banka2", List.of(loan1, loan2), List.of(creditCard2));
         Bank bank3 = new Bank("Banka3", List.of(loan3, loan5, loan7, loan8), List.of(creditCard3));
+        List<Bank> bankList = List.of(bank1,bank2,bank3);*/
 
         Random random = new Random();
         List<Application> applicationList = new ArrayList<>();
@@ -83,6 +86,8 @@ public class Main {
                 maxApplicationUser = user;
             }
         }
+        System.out.println("En cok basvuru yapan kullanici " + maxApplicationUser.getName());
+
         Application maxApplication = applicationList.get(0);
         for (int i = 1; i < applicationList.size(); i++) {
             Application application = applicationList.get(i);
@@ -90,15 +95,21 @@ public class Main {
                 maxApplication = application;
             }
         }
+        System.out.println("En yuksek kredi isteyen kullanici " + maxApplication.getUser().getName() + " istedigi tutar " + maxApplication.getLoan().getAmount());
+
 
         LocalDateTime lastMonths = LocalDateTime.now().minusMonths(1L);
         applicationList.stream()
                 .filter(application -> application.getLocalDateTime().isAfter(lastMonths))
-                .forEach(app -> System.out.println(app));
+                .forEach(app -> System.out.println(app.getLocalDateTime()));
 
         creditCardList.stream()
                 .sorted((o1, o2) -> Integer.compare(o2.getCampaignList().size(), o1.getCampaignList().size()))
-                .forEach(sort -> System.out.println(sort));
+                .forEach(sort -> System.out.println(sort.getFee() +  " ucretli kartin kampanya sayisi: " + sort.getCampaignList().size()));
+
+        String listApplicationsByEmail = "cemdrman@gmail.com";
+        System.out.println(listApplicationsByEmail + " Maili ile " +
+                findApplicationsByEmail(applicationList,listApplicationsByEmail).size() + " adet basvuru bulunuyor ve liste olarak tutuluyor");
 
     }
 
