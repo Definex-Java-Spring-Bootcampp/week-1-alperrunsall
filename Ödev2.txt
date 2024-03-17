@@ -1,0 +1,42 @@
+---------- 2 NOLU ÖDEV -----------
+
+SOAP:
+
+İnternet üzerinden küçük miktarda bilgileri yada mesajları aktarma protokoludur. SOAP mesajları XML formatındadır ve HTTP protokolü kullanılarak gönderilirler.
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://example.com/service">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ser:LoginRequest>
+            <username>alperr_26</username>
+            <password>123456</password>
+        </ser:LoginRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+
+Web Servisler:
+
+Web servisleri, uygulamaların ağ üzerinden birbirleriyle iletişim kurmasını sağlayan bir mimaridir. SOAP, REST gibi protokoller kullanılarak uygulanabilirler. Web servisleri genellikle XML veya JSON gibi veri formatlarını kullanır ve genellikle HTTP protokolü üzerinden iletişim sağlarlar.
+
+RESTful:
+
+RESTful servisler, HTTP protokolünü kullanarak kaynaklar üzerinde operasyonları gerçekleştiren hizmetlerdir. RESTful servisler, CRUD (Create, Read, Update, Delete) işlemleri için HTTP metodlarını (GET, POST, PUT, DELETE) kullanır.
+
+@GetMapping("/users/{id}")
+public ResponseEntity<User> getUser(@PathVariable Long id) {
+    User user = userService.getUserById(id);
+    if (user != null) {
+        return ResponseEntity.ok(user);
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
+
+HTTP Metodları:
+
+HTTP protokolü, kaynaklar üzerinde çeşitli işlemler gerçekleştirmek için metodlar sunar. En yaygın kullanılanlar arasında GET, POST, PUT, DELETE bulunur. Bu metodlar genellikle RESTful servislerde kaynaklara erişim ve değişiklik yapmak için kullanılır.
+
+GET: Bir kaynağın alınmasını sağlar.
+POST: Yeni bir kaynağın oluşturulmasını sağlar.
+PUT: Varolan bir kaynağın güncellenmesini sağlar.
+DELETE: Varolan bir kaynağın silinmesini sağlar.
